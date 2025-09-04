@@ -1,9 +1,17 @@
-//
-//  ContentView.swift
-//  lab1
-//
-//  Created by cisstudent on 9/3/25.
-//
+/**
+
+ * Lab 1
+ * Jim Mittler
+ * 4 September 2025
+
+ This program loads dog descriptions and images.
+ We display a grid of the dog images and show a description when the image is clicked.
+ 
+ _Italic text_
+ __Bold text__
+ ~~Strikethrough text~~
+
+ */
 
 import SwiftUI
 
@@ -21,17 +29,6 @@ struct RuntimeError: LocalizedError {
 }
 
 /* load the dog names and descriptions. Return a dictionary  */
-
-func loadTapped(_ dictionary: [String: String]) -> [String: Bool] {
-    var booleanDictionary: [String: Bool] = [:]
-
-    // Iterate over the keys of the string dictionary
-    for key in dictionary.keys {
-        // Add each key to the new dictionary with a default Boolean value (e.g., false)
-        booleanDictionary[key] = false
-    }
-    return booleanDictionary
-}
 func loadDogs() throws -> [String: String] {
 
     /* it would be nice to iterate over the images programatically but swift doesn't seem to want to make that easy. Instead we make an array of dog names.
@@ -88,8 +85,10 @@ struct ContentView: View {
 
     let dogs = try! loadDogs()
 
-    @State var dog: String? = "Tosa"
+    // state variable for which dog is picked
+    @State var dog: String?
 
+    // grid for the pictures
     let columns = [
         GridItem(.adaptive(minimum: 200))
     ]
@@ -102,6 +101,7 @@ struct ContentView: View {
                     .fontWeight(.bold)
                     .padding(.bottom, 10)  // Add some spacing below the header
 
+                // we use a lazy vgrid to show the images
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(Array(dogs.keys), id: \.self) { key in
                         Image(key)
@@ -113,7 +113,8 @@ struct ContentView: View {
                     }
                 }
                 .padding(.horizontal)
-                Text(dogs[dog!]!)
+                // show the picked dog if any
+                Text(dog != nil ? dogs[dog!]! : "")
             }
         }
         .frame(maxHeight: 1000)
