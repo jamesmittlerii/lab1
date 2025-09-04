@@ -14,6 +14,7 @@
  */
 
 import SwiftUI
+import OrderedCollections
 
 /* define a runtime error we can throw if we can't load our stuff */
 struct RuntimeError: LocalizedError {
@@ -29,7 +30,7 @@ struct RuntimeError: LocalizedError {
 }
 
 /* load the dog names and descriptions. Return a dictionary  */
-func loadDogs() throws -> [String: String] {
+func loadDogs() throws -> OrderedDictionary<String,String> {
 
     /* it would be nice to iterate over the images programatically but swift doesn't seem to want to make that easy. Instead we make an array of dog names.
      */
@@ -72,7 +73,7 @@ func loadDogs() throws -> [String: String] {
         }
 
         /* ok we've got our dictionary now - return it*/
-        let dogInfo = Dictionary(uniqueKeysWithValues: zip(dogs, filtered))
+        let dogInfo = OrderedDictionary(uniqueKeysWithValues: zip(dogs, filtered))
         return dogInfo
 
     } else {
