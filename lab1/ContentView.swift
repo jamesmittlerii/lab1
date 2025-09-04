@@ -81,13 +81,47 @@ func loadDogs() throws -> [String: String] {
 
 }
 
+struct HoverableImageView: View {
+    let dog: String
+    let parentView: ContentView
+    
+     var body: some View {
+        Image(dog)
+            .resizable()
+            .scaledToFit()
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(10)
+            .opacity(dog == parentView.dog ? 0.7 : 1.0) // Example: reduce opacity when highlighted
+                    .scaleEffect(dog == parentView.dog  ? 1.1 : 1.0) // Example: slightly enlarge when highlighted
+                    .animation(.easeInOut, value: dog == parentView.dog ) // Add animation for a smoother effect
+            .onTapGesture {
+                parentView.dog = dog
+            }
+            
+            // Display an overlay based on the individual image's state
+            .overlay(
+                Group {
+                    if  parentView.dog == dog {
+                        Text(dog)
+                            .padding(8)
+                            .background(Color.black.opacity(0.8))
+                            .foregroundColor(.white)
+                            .cornerRadius(5)
+                            //.offset(y: -60)
+                            .transition(.opacity)
+                    }
+                }
+            )
+    }
+}
+
 struct ContentView: View {
 
     let dogs = try! loadDogs()
 
     // state variable for which dog is picked
     @State var dog: String?
-
+    
     // grid for the pictures
     let columns = [
         GridItem(.adaptive(minimum: 200))
@@ -96,7 +130,7 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text("Pick a dog..any dog")
+                Text("Pick a dog...any dog")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.bottom, 10)  // Add some spacing below the header
@@ -104,12 +138,7 @@ struct ContentView: View {
                 // we use a lazy vgrid to show the images
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(Array(dogs.keys), id: \.self) { key in
-                        Image(key)
-                            .resizable()
-                            .scaledToFit()
-                            .onTapGesture {
-                                dog = key
-                            }
+                        HoverableImageView(dog: key, parentView: self)
                     }
                 }
                 .padding(.horizontal)
