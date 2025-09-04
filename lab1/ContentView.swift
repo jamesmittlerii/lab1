@@ -123,30 +123,35 @@ struct ContentView: View {
     // state variable for which dog is picked
     @State var dog: String?
     
+    
+    
     // grid for the pictures
     let columns = [
         GridItem(.adaptive(minimum: 200))
     ]
 
     var body: some View {
-        ScrollView {
+       
             VStack {
                 Text("Pick a dog...any dog")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.bottom, 10)  // Add some spacing below the header
 
-                // we use a lazy vgrid to show the images
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(Array(dogs.keys), id: \.self) { key in
-                        HoverableImageView(dog: key, parentView: self)
+                ScrollView {
+                    // we use a lazy vgrid to show the images
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(Array(dogs.keys), id: \.self) { key in
+                            HoverableImageView(dog: key, parentView: self)
+                        }
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
                 // show the picked dog if any
                 Text(dog != nil ? dogs[dog!]! : "")
+                    .padding()
             }
-        }
+        
         .frame(maxHeight: 1000)
     }
 }
