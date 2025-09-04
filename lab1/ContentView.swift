@@ -81,6 +81,7 @@ func loadDogs() throws -> [String: String] {
 
 }
 
+/* have a structure that can highlight the selected image */
 struct HoverableImageView: View {
     let dog: String
     let parentView: ContentView
