@@ -20,6 +20,11 @@ jobs:
           default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
           echo $default | cat >default
           echo Using default scheme: $default
+      - name: Import Apple Code Signing Certificates
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.P12_BASE64_CERTIFICATE }}
+          p12-password: ${{ secrets.P12_PASSWORD }}
       - name: Build
         env:
           scheme: ${{ 'default' }}
