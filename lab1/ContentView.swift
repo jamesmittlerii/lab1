@@ -1,8 +1,8 @@
 /**
 
- * Lab 1
- * Jim Mittler
- * 4 September 2025
+ * __Lab 1__
+ * Jim Mittler and Alex Tererin
+ * 17 September 2025
 
  This program loads dog descriptions and images.
  We display a grid of the dog images and show a description when the image is clicked.
@@ -34,10 +34,10 @@ struct RuntimeError: LocalizedError {
 Ordered dictionary will keep the dog list alphabetized.
 
  */
-func loadDogs() throws -> [String: String] {
+func loadDogs() throws -> OrderedDictionary<String, String> {
 
      
-    let dogDesc: [String: String] = [
+    let dogDesc: OrderedDictionary<String, String> = [
             "Airedale Terrier": "The Airedale Terrier stands among the world's most versatile dog breeds and has distinguished himself as hunter, athlete, and companion.",
             "American Foxhound": "American Foxhounds are good-natured, low-maintenance hounds who get on well with kids, dogs, even cats, but come with special considerations for prospective owners.",
             "Dutch Shepherd": "The Dutch Shepherd is a lively, athletic, alert and intelligent breed, and has retained its herding instinct for which it was originally developed.",
@@ -50,7 +50,6 @@ func loadDogs() throws -> [String: String] {
             "Tosa": "The Tosa's temperament is marked by patience, composure, boldness and courage. He is normally a tranquil, quiet, and obedient dog, with a calm but vigilant demeanor."
         ]
    
-
    return dogDesc
 }
 
@@ -105,13 +104,20 @@ struct ContentView: View {
     // load our dog list
     let dogs = try! loadDogs()
 
-    // state variable for which dog is picked
+    // figure out if we are ipad or iphone
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+      
+      //  Compute the minimum grid size based on the size class.
+       var gridSize: CGFloat {
+          (horizontalSizeClass == .regular) ? 200 : 100
+      }
+    
     @State var dog: String?
 
     // grid for the pictures
-    let columns = [
-        GridItem(.adaptive(minimum: 200))
-    ]
+    var columns: [GridItem] {
+           [GridItem(.adaptive(minimum: gridSize))]
+       }
 
     var body: some View {
 
