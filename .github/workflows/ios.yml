@@ -13,9 +13,9 @@ on:
 jobs:
 
   deploy-beta:
-    if: github.ref == 'refs/heads/testing'
+#    if: github.ref == 'refs/heads/testing'
     name: Deploy to Test Flight
-    needs: test 
+    needs: build 
     runs-on: macos-latest # Use a macOS runner for iOS builds
 
     steps:
