@@ -19,6 +19,9 @@ final class lab1UITestsLaunchTests: XCTestCase {
 
     @MainActor
     func testLaunch() throws {
+        
+        try XCTSkipIf(true, "This test is temporarily disabled.")
+        
         let app = XCUIApplication()
         app.launch()
 

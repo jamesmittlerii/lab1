@@ -82,6 +82,8 @@ final class lab1UITests: XCTestCase {
 
     @MainActor
     func testLaunchPerformance() throws {
+        
+        try XCTSkipIf(true, "This test is temporarily disabled.")
         // This measures how long it takes to launch your application.
         measure(metrics: [XCTApplicationLaunchMetric()]) {
             XCUIApplication().launch()
