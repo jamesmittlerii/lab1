@@ -32,6 +32,9 @@ jobs:
 
       - name: Install Fastlane
         run: bundle install
+ 
+      - name: Print all environment variables
+        run: env
 
       - name: Run Fastlane Beta Lane
         env:
