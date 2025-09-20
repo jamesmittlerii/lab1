@@ -1,11 +1,15 @@
-git_url("https://github.com/jamesmittlerii/applecerts.git")
+cert_url = "https://github.com/#{ENV['GITHUB_REPOSITORY_OWNER']}/applecerts.git"
+
+git_url(cert_url)
 
 storage_mode("git")
 
 type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
-app_identifier(["com.rheosoft.lab1"])
-# username("user@fastlane.tools") # Your Apple Developer Portal username
+
+app_id = "com.rheosoft.#{ENV['PROJECT_NAME']}"
+
+app_identifier([app_id])
 
 # For all available options run `fastlane match --help`
 # Remove the # in the beginning of the line to enable the other options
