@@ -17,6 +17,8 @@ jobs:
     name: Deploy to Test Flight
     needs: build 
     runs-on: macos-latest # Use a macOS runner for iOS builds
+    env:
+      CURRENT_BRANCH: ${{ github.ref_name }}
 
     steps:
       - name: Checkout repository

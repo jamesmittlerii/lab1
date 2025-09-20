@@ -34,7 +34,9 @@ platform :ios do
       force: true,
       xcodeproj: "lab1.xcodeproj"
     )
-    push_to_git_remote # Push the committed changes
+    push_to_git_remote(  # Push the committed changes
+        remote_branch: ENV['CURRENT_BRANCH']
+    )
           
 
     build_app(scheme: "lab1")
