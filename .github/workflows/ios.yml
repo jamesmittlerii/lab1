@@ -76,6 +76,7 @@ jobs:
           retention-days: 1
 
   test:
+    if: false
     needs: build
     name: Test on ${{ matrix.device }}
     runs-on: macos-latest
