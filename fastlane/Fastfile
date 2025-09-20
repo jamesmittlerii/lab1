@@ -18,7 +18,8 @@ default_platform(:ios)
 platform :ios do
   before_all do
     # Run setup_ci for any CI environment
-    setup_ci if is_ci?
+    setup_ci if ENV['CI']
+    #is_ci? 
     match(type: 'appstore')
   end
 
@@ -26,12 +27,23 @@ platform :ios do
   lane :beta do
 
     #setup_ci if ENV['CI']
-    match(type: 'appstore')
+    #match(type: 'appstore')
     increment_build_number(xcodeproj: "lab1.xcodeproj")
+    commit_version_bump(
+      message: "Bump version from Fastlane",
+      force: true,
+      xcodeproj: "lab1.xcodeproj"
+    )
+    push_to_git_remote # Push the committed changes
+          
+
     build_app(scheme: "lab1")
+
+    app_store_connect_api_key
     upload_to_testflight(
-      skip_waiting_for_build_processing: true # Don't wait for processing on CI
+    #    api_key: api_key,
+    #  apple_id: ENV['FASTLANE_APPLE_APPLICATION_ID'],
+      skip_waiting_for_build_processing: false
     )
   end
 end
-
