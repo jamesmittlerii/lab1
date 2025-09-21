@@ -1,5 +1,5 @@
 # .github/workflows/caller-workflow.yml
-name: Caller Workflow
+name: Shared IOS build/test/deploy Workflow
 
 permissions:
       contents: write
