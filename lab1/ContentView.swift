@@ -36,7 +36,7 @@ Ordered dictionary will keep the dog list alphabetized.
  */
 func loadDogs() throws -> OrderedDictionary<String, String> {
 
-     
+     // our list of dogs and descriptions
     let dogDesc: OrderedDictionary<String, String> = [
             "Airedale Terrier": "The Airedale Terrier stands among the world's most versatile dog breeds and has distinguished himself as hunter, athlete, and companion.",
             "American Foxhound": "American Foxhounds are good-natured, low-maintenance hounds who get on well with kids, dogs, even cats, but come with special considerations for prospective owners.",
@@ -111,7 +111,8 @@ struct ContentView: View {
        var gridSize: CGFloat {
           (horizontalSizeClass == .regular) ? 200 : 100
       }
-    
+
+ // what dog is selected?
     @State var dog: String?
 
     // grid for the pictures
