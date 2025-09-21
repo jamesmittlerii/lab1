@@ -1,4 +1,6 @@
-app_identifier("com.rheosoft.lab1") # The bundle identifier of your app
+app_id = "com.rheosoft.#{ENV['PROJECT_NAME']}"
+
+app_identifier(app_id)
 apple_id("chicagozer@gmail.com") # Your Apple Developer Portal username
 
 itc_team_id("128156755") # App Store Connect Team ID
