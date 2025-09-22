@@ -1,9 +1,9 @@
-# .github/workflows/caller-workflow.yml
 name: Shared IOS build/test/deploy Workflow
 
 permissions:
       contents: write
       pull-requests: write
+      id-token: write
 
 on:
   push:
@@ -11,8 +11,12 @@ on:
   pull_request:
     branches: [ "main" ]
 
+
+concurrency:
+  group: ${{ github.repository}}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   call-reusable-workflow:
     uses: jamesmittlerii/workflows/.github/workflows/ios.yml@main # Or a specific commit SHA or tag
     secrets: inherit
-
